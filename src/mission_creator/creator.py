@@ -10,16 +10,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from .config import README_CONTENT, STRUCTURE
+from .config import TYPES_PROJET
 
 
 @dataclass
 class MissionConfig:
     """Paramètres d'une nouvelle mission."""
 
-    nom: str          # nom brut saisi par l'utilisateur
+    nom: str           # nom brut saisi par l'utilisateur
     destination: Path  # dossier parent où créer la mission
-    date: str         # date au format YYYY-MM-DD
+    date: str          # date au format YYYY-MM-DD
+    type_projet: str   # "motion" ou "graphisme"
 
 
 @dataclass
@@ -53,8 +54,9 @@ def creer_mission(config: MissionConfig) -> MissionResult:
     if dossier_mission.exists():
         raise FileExistsError(f"Ce dossier existe déjà : {dossier_mission}")
 
-    _creer_dossiers(dossier_mission, STRUCTURE)
-    _creer_readmes(dossier_mission, config.nom, config.date)
+    type_data = TYPES_PROJET[config.type_projet]
+    _creer_dossiers(dossier_mission, type_data["structure"])
+    _creer_readmes(dossier_mission, config.nom, config.date, type_data["readme"])
 
     nb_dossiers = sum(1 for p in dossier_mission.rglob("*") if p.is_dir())
     return MissionResult(chemin=dossier_mission, nb_dossiers=nb_dossiers)
@@ -77,9 +79,9 @@ def _creer_dossiers(base: Path, structure: dict[str, dict]) -> None:
             _creer_dossiers(dossier, enfants)
 
 
-def _creer_readmes(base: Path, nom_mission: str, date: str) -> None:
+def _creer_readmes(base: Path, nom_mission: str, date: str, readme_content: dict[str, str]) -> None:
     """Dépose les fichiers README.md dans les dossiers configurés."""
-    for sous_chemin, contenu in README_CONTENT.items():
+    for sous_chemin, contenu in readme_content.items():
         chemin = (base / sous_chemin / "README.md") if sous_chemin else (base / "README.md")
         texte = contenu.format(nom_mission=nom_mission, date=date)
         chemin.write_text(texte, encoding="utf-8")

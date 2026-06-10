@@ -32,11 +32,12 @@ def main() -> None:
     """Point d'entrée de la commande `mission-creator`."""
     print("\n🎨  Mission Creator\n" + "─" * 38)
 
+    type_projet = _saisir_type()
     nom = _saisir_nom()
     destination = _saisir_destination()
     date = datetime.now().strftime("%Y-%m-%d")
 
-    config = MissionConfig(nom=nom, destination=destination, date=date)
+    config = MissionConfig(nom=nom, destination=destination, date=date, type_projet=type_projet)
 
     try:
         result = creer_mission(config)
@@ -50,6 +51,20 @@ def main() -> None:
 
 
 # ── Helpers I/O ──────────────────────────────────────────────────
+
+
+def _saisir_type() -> str:
+    """Demande le type de projet et retourne la clé correspondante."""
+    print("\nType de projet :")
+    print("  1. Motion Design")
+    print("  2. Graphisme / Print")
+    while True:
+        choix = input("Choix [1/2] : ").strip()
+        if choix == "1":
+            return "motion"
+        if choix == "2":
+            return "graphisme"
+        print("  ⚠  Saisir 1 ou 2.")
 
 
 def _saisir_nom() -> str:

@@ -22,11 +22,10 @@ from __future__ import annotations
 
 
 # ══════════════════════════════════════════════════════════════════
-#  STRUCTURE DES DOSSIERS
-#  Modifie uniquement cette section pour changer l'arborescence.
+#  TYPE 1 — MOTION DESIGN
 # ══════════════════════════════════════════════════════════════════
 
-STRUCTURE: dict[str, dict] = {
+STRUCTURE_MOTION: dict[str, dict] = {
 
     # ── Administration & suivi client ─────────────────────────────
     "00_ADMIN": {
@@ -92,7 +91,6 @@ STRUCTURE: dict[str, dict] = {
     },
 
     # ── Exports : livrables finaux par format ─────────────────────
-    #  👉 Pour renommer ce dossier : changer "05_EXPORTS" ci-dessous
     "05_EXPORTS": {
         "Master": {
             "ProRes":       {},   # ProRes 422 / 4444 pour archivage
@@ -109,16 +107,8 @@ STRUCTURE: dict[str, dict] = {
 
 }
 
+README_CONTENT_MOTION: dict[str, str] = {
 
-# ══════════════════════════════════════════════════════════════════
-#  README — notes d'orientation dans les dossiers clés
-#  Clé = chemin relatif depuis la racine ("" = racine du projet).
-#  {nom_mission} et {date} sont remplacés automatiquement.
-# ══════════════════════════════════════════════════════════════════
-
-README_CONTENT: dict[str, str] = {
-
-    # Racine du projet
     "": (
         "# {nom_mission}\n\n"
         "Projet démarré le {date}.\n\n"
@@ -136,7 +126,6 @@ README_CONTENT: dict[str, str] = {
         "> **Ne jamais les modifier directement.**\n"
     ),
 
-    # Rappel dans le dossier Review
     "04_REVIEW": (
         "## Review\n\n"
         "Archiver chaque version envoyée au client dans son propre sous-dossier.\n\n"
@@ -144,7 +133,6 @@ README_CONTENT: dict[str, str] = {
         "- `V_FINAL` = version validée par le client. Ne plus y toucher après validation.\n"
     ),
 
-    # Rappel dans le dossier Exports
     "05_EXPORTS": (
         "## Exports\n\n"
         "Livrables finaux prêts à livrer.\n\n"
@@ -153,4 +141,125 @@ README_CONTENT: dict[str, str] = {
         "- `Reseaux_Sociaux/` → un sous-dossier par format\n"
     ),
 
+}
+
+
+# ══════════════════════════════════════════════════════════════════
+#  TYPE 2 — GRAPHISME / PRINT
+# ══════════════════════════════════════════════════════════════════
+
+STRUCTURE_GRAPHISME: dict[str, dict] = {
+
+    # ── Administration & suivi client ─────────────────────────────
+    "00_ADMIN": {
+        "Brief":            {},   # brief client, cahier des charges
+        "Devis_Contrat":    {},   # devis signé, contrat
+        "Factures":         {},   # factures émises
+        "Echanges":         {},   # captures d'écran d'emails, retours importants
+    },
+
+    # ── Préproduction ─────────────────────────────────────────────
+    "01_PREPROD": {
+        "References":       {},   # moodboard, inspirations visuelles
+        "Moodboard":        {},   # planche d'ambiance couleurs / typo / style
+        "Croquis":          {},   # esquisses, rough, schémas de mise en page
+        "Textes_Contenus":  {},   # textes validés, contenus à intégrer
+    },
+
+    # ── Assets : toutes les sources organisées par type ───────────
+    "02_ASSETS": {
+        "Brand": {
+            "_Charte":      {},   # guidelines, PDF de charte fournis par le client
+            "_Logos":       {},   # logos vectoriels (AI, SVG, EPS)
+            "_Fonts":       {},   # copies locales des polices du projet
+        },
+        "Images": {
+            "_Sources":     {},   # fichiers originaux bruts — NE JAMAIS MODIFIER
+            "_Ready":       {},   # recadrées, retouchées, prêtes à l'emploi
+        },
+        "Illustrations": {
+            "_Sources":     {},   # fichiers Ai / Procreate / Figma originaux
+            "_Exports":     {},   # PNG, SVG exportés pour intégration
+        },
+    },
+
+    # ── Production : fichiers de travail par logiciel ─────────────
+    "03_PROD": {
+        "Photoshop":        {},   # retouches, photomontages, compositions
+        "Illustrator":      {},   # illustrations vectorielles, logos, icônes
+        "InDesign":         {},   # mise en page (affiche, newsletter, presse)
+        "Figma":            {},   # maquettes UI, carrousels, formats digitaux
+    },
+
+    # ── Review : versions envoyées au client ──────────────────────
+    "04_REVIEW": {
+        "V01":              {},   # première proposition
+        "V02":              {},
+        "V_FINAL":          {},   # version validée par le client — NE PAS MODIFIER
+    },
+
+    # ── Exports : livrables finaux par format ─────────────────────
+    "05_EXPORTS": {
+        "Print": {
+            "PDF_HD":       {},   # PDF haute définition pour impression
+            "PDF_BAT":      {},   # bon à tirer validé
+        },
+        "Numerique": {
+            "JPEG_Web":     {},   # JPEG optimisé pour web
+            "PNG_Transparent": {},  # PNG avec transparence
+        },
+        "Reseaux_Sociaux": {
+            "Story_9x16":   {},
+            "Feed_1x1":     {},
+            "Carrousel":    {},
+        },
+    },
+
+}
+
+README_CONTENT_GRAPHISME: dict[str, str] = {
+
+    "": (
+        "# {nom_mission}\n\n"
+        "Projet démarré le {date}.\n\n"
+        "---\n\n"
+        "## Structure\n\n"
+        "| Dossier | Contenu |\n"
+        "|---|---|\n"
+        "| `00_ADMIN` | Brief, devis, factures, échanges client |\n"
+        "| `01_PREPROD` | Références, moodboard, croquis, textes |\n"
+        "| `02_ASSETS` | Toutes les sources (brand, images, illustrations) |\n"
+        "| `03_PROD` | Fichiers de travail Photoshop, Illustrator, InDesign, Figma |\n"
+        "| `04_REVIEW` | Versions envoyées au client |\n"
+        "| `05_EXPORTS` | Livrables finaux (print, web, réseaux sociaux) |\n\n"
+        "> Les dossiers préfixés `_Sources` contiennent les fichiers originaux bruts.\n"
+        "> **Ne jamais les modifier directement.**\n"
+    ),
+
+    "04_REVIEW": (
+        "## Review\n\n"
+        "Archiver chaque version envoyée au client dans son propre sous-dossier.\n\n"
+        "- Nommer les fichiers avec la date : `{nom_mission}_V01_2026-01-15.pdf`\n"
+        "- `V_FINAL` = version validée par le client. Ne plus y toucher après validation.\n"
+    ),
+
+    "05_EXPORTS": (
+        "## Exports\n\n"
+        "Livrables finaux prêts à livrer.\n\n"
+        "- `Print/PDF_HD` → impression haute qualité\n"
+        "- `Print/PDF_BAT` → bon à tirer signé\n"
+        "- `Numerique/` → formats web optimisés\n"
+        "- `Reseaux_Sociaux/` → un sous-dossier par format\n"
+    ),
+
+}
+
+
+# ══════════════════════════════════════════════════════════════════
+#  INDEX — associe chaque type à ses données
+# ══════════════════════════════════════════════════════════════════
+
+TYPES_PROJET: dict[str, dict] = {
+    "motion":     {"structure": STRUCTURE_MOTION,    "readme": README_CONTENT_MOTION},
+    "graphisme":  {"structure": STRUCTURE_GRAPHISME,  "readme": README_CONTENT_GRAPHISME},
 }
