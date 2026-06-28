@@ -452,6 +452,12 @@ STRUCTURE_CONTENU: dict[str, dict] = {
 
     # ── Création par plateforme ───────────────────────────────────
     "02_CREATION": {
+        "_Natifs": {
+            "AfterEffects": {},
+            "Photoshop":    {},
+            "Illustrator":  {},
+            "Premiere":     {},
+        },
         "Instagram": {
             "Feed":         {},
             "Story":        {},
