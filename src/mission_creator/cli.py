@@ -58,13 +58,15 @@ def _saisir_type() -> str:
     print("\nType de projet :")
     print("  1. Motion Design")
     print("  2. Graphisme / Print")
+    print("  3. E-commerce / Boutique en ligne")
+    print("  4. Creator / Marque personnelle")
+    print("  5. Contenu récurrent (batch hebdo / mensuel)")
+    types = {"1": "motion", "2": "graphisme", "3": "ecommerce", "4": "creator", "5": "contenu"}
     while True:
-        choix = input("Choix [1/2] : ").strip()
-        if choix == "1":
-            return "motion"
-        if choix == "2":
-            return "graphisme"
-        print("  ⚠  Saisir 1 ou 2.")
+        choix = input("Choix [1-5] : ").strip()
+        if choix in types:
+            return types[choix]
+        print("  ⚠  Saisir un chiffre entre 1 et 5.")
 
 
 def _saisir_nom() -> str:
